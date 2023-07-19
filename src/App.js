@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import BookSearchPage from './components/BookSearchPage.js';
-import BookDetailsPage from './components/BookDetailsPage.js';
-import PublicBookshelfPage from './components/PublicBookshelfPage.js';
+import BookSearchPage from './src/components/BookSearchPage.js';
+import BookDetailsPage from './src/components/BookDetailsPage.js';
+import PublicBookshelfPage from './src/components/PublicBookshelfPage.js';
 import './index.css';
 
 function App() {
