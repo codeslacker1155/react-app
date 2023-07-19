@@ -10,9 +10,15 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/search" component={BookSearchPage} />
-          <Route path="/details/:id" component={BookDetailsPage} />
-          <Route path="/bookshelf" component={PublicBookshelfPage} />
+          <Route path="/book/:id">
+            <BookDetailsPage />       
+          </Route>
+          <Route path="/public">
+            <PublicBookshelfPage />
+          </Route>
+          <Route path="/">
+            <BookSearchPage />
+          </Route>
         </Switch>
       </div>
     </Router>
