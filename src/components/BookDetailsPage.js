@@ -30,8 +30,8 @@ function BookDetailsPage({ id }) { // Receive id as a prop
       </div>
     `;
     const rendered = Mustache.render(template, book);
-    $('#book').html(rendered);
-  }, [book]);
+    $(`#book-details-${id}`).html(rendered); // Use the book id to select the correct element
+  }, [book, id]);
 
   useEffect(() => {
     fetchBook();

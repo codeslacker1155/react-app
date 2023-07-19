@@ -9,7 +9,7 @@ function BookSearchPage() {
   const [search, setSearch] = useState('');
   const [books, setBooks] = useState([]);
 
-  const handleSearch = useCallback(async () => {
+  const handleSearch = useCallback(() => {
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}`, (data) => {
       setBooks(data.items);
     });
@@ -38,9 +38,8 @@ function BookSearchPage() {
   }, [books]);
 
   useEffect(() => {
-    handleSearch();
     renderBooks();
-  }, [books, handleSearch, renderBooks]);  
+  }, [books, renderBooks]);  
 
   return (
     <div>
