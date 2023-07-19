@@ -9,7 +9,7 @@ function PublicBookshelfPage() {
   const fetchBooks = useCallback(() => {
     // Fetch the books from your public bookshelf
     // You need to replace the URL with the actual URL of your public bookshelf
-    $.get('https://www.googleapis.com/books/v1/users/104553721219978298619/bookshelves/1', (data) => {
+    $.get('https://www.googleapis.com/books/v1/users/104553721219978298619/bookshelves/1001/volumes', (data) => {
       setBooks(data.items);
     });
   }, []);
