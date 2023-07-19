@@ -9,6 +9,16 @@ function App() {
   return (
     <Router>
       <div className="App">
+      <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/public">My Bookshelf</Link>
+            </li>
+          </ul>
+        </nav>
         <Switch>
           <Route path="/book/:id">
             <BookDetailsPage />       
