@@ -66,3 +66,61 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+/* Additional styles for App.js */
+.search-input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.search-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.book {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px;
+}
+
+.book-title {
+    font-size: 1.5em;
+}
+
+.book-image {
+    width: 100px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.book-description {
+    text-align: left;
+}
+
+.book-authors,
+.book-categories,
+.book-identifiers,
+.book-published-date,
+.book-publisher,
+.book-page-count,
+.book-average-rating,
+.book-ratings-count,
+.book-language,
+.book-preview-link,
+.book-info-link,
+.book-canonical-volume-link,
+.book-subtitle {
+    text-align: left;
+    font-size: 0.9em;
+}
