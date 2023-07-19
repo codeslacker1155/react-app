@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
 import $ from 'jquery';
 import Mustache from 'mustache';
 import '../index.css';
 
-function BookDetailsPage() {
-  const { id } = useParams();
+function BookDetailsPage({ id }) { // Receive id as a prop
   const [book, setBook] = useState({});
 
   const fetchBook = useCallback(() => {

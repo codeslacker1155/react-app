@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
 import '../index.css';
+import BookDetailsPage from './BookDetailsPage'; // Import the BookDetailsPage component
 
 function PublicBookshelfPage() {
   const [books, setBooks] = useState([]);
@@ -21,12 +22,22 @@ function PublicBookshelfPage() {
         <h2 class="book-title">{{volumeInfo.title}}</h2>
         <img class="book-image" src="{{volumeInfo.imageLinks.thumbnail}}" alt="{{volumeInfo.title}}" />
         <p class="book-description">{{volumeInfo.description}}</p>
+        <div id="book-details-{{id}}"></div> <!-- Placeholder for the BookDetailsPage component -->
         <a href="{{volumeInfo.infoLink}}">More Info</a>
       </div>
       {{/books}}
     `;
     const rendered = Mustache.render(template, { books });
     $('#books').html(rendered);
+
+    // Render the BookDetailsPage component for each book
+    books.forEach(book => {
+      const { id } = book;
+      const bookDetailsContainer = document.getElementById(`book-details-${id}`);
+      if (bookDetailsContainer) {
+        ReactDOM.render(<BookDetailsPage id={id} />, bookDetailsContainer);
+      }
+    });
   }, [books]);
 
   useEffect(() => {
