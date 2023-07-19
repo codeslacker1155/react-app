@@ -75,7 +75,6 @@ function App() {
             <p>{book.volumeInfo.canonicalVolumeLink}</p>
             <p>{book.volumeInfo.subtitle}</p>
             <img src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} />
-            <a href={book.volumeInfo.previewLink} target="_blank" rel="noreferrer">Preview</a>
             <hr />
           </div>
         ))}
