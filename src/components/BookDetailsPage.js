@@ -1,28 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import $ from 'jquery';
+import Mustache from 'mustache';
 
 function BookDetailsPage() {
   const { id } = useParams();
   const [book, setBook] = useState({});
 
   useEffect(() => {
-    fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
-      .then(response => response.json())
-      .then(data => setBook(data));
+    $.get(`https://www.googleapis.com/books/v1/volumes/${id}`, (data) => {
+      setBook(data);
+    });
   }, [id]);
 
+  const renderBook = () => {
+    const template = `
+      <div class="book">
+        <h2 class="book-title">{{volumeInfo.title}}</h2>
+        <img class="book-image" src="{{volumeInfo.imageLinks.thumbnail}}" alt="{{volumeInfo.title}}" />
+        <div class="book-description">{{volumeInfo.description}}</div>
+        <p class="book-info"><strong>ISBN: </strong>{{volumeInfo.industryIdentifiers[0].identifier}}</p>
+        <p class="book-info"><strong>Author(s): </strong>{{volumeInfo.authors}}</p>
+        <p class="book-info"><strong>Publisher: </strong>{{volumeInfo.publisher}}</p>
+        <p class="book-info"><strong>Page Count: </strong>{{volumeInfo.pageCount}}</p>
+        <p class="book-info"><strong>Average Rating: </strong>{{volumeInfo.averageRating}} ({{volumeInfo.ratingsCount}} ratings)</p>
+        <a href="{{volumeInfo.infoLink}}">More Info</a>
+      </div>
+    `;
+    const rendered = Mustache.render(template, book);
+    $('#book').html(rendered);
+  };
+
+  useEffect(() => {
+    renderBook();
+  }, [book]);
+
   return (
-    <div className="book">
-      <h2 className="book-title">{book.volumeInfo?.title}</h2>
-      <img className="book-image" src={book.volumeInfo?.imageLinks?.thumbnail} alt={book.volumeInfo?.title} />
-      <div className="book-description" dangerouslySetInnerHTML={{ __html: book.volumeInfo?.description || 'No description available' }}></div>
-      <p className="book-info"><strong>ISBN: </strong>{book.volumeInfo?.industryIdentifiers?.[0]?.identifier}</p>
-      <p className="book-info"><strong>Author(s): </strong>{book.volumeInfo?.authors?.join(', ')}</p>
-      <p className="book-info"><strong>Publisher: </strong>{book.volumeInfo?.publisher}</p>
-      <p className="book-info"><strong>Page Count: </strong>{book.volumeInfo?.pageCount}</p>
-      <p className="book-info"><strong>Average Rating: </strong>{book.volumeInfo?.averageRating} ({book.volumeInfo?.ratingsCount} ratings)</p>
-      <a href={book.volumeInfo?.infoLink}>More Info</a>
-    </div>
+    <div id="book"></div>
   );
 }
 

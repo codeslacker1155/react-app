@@ -1,27 +1,44 @@
-// PublicBookshelfPage.js
 import React, { useState, useEffect } from 'react';
+import $ from 'jquery';
+import Mustache from 'mustache';
 
 function PublicBookshelfPage() {
   const [books, setBooks] = useState([]);
 
-  useEffect(() => {
+  const fetchBooks = () => {
     // Fetch the books from your public bookshelf
     // You need to replace the URL with the actual URL of your public bookshelf
-    fetch('https://www.googleapis.com/books/v1/users/userId/bookshelves/shelfId/volumes')
-      .then(response => response.json())
-      .then(data => setBooks(data.items));
+    $.get('https://www.googleapis.com/books/v1/users/userId/bookshelves/shelfId/volumes', (data) => {
+      setBooks(data.items);
+    });
+  };
+
+  const renderBooks = () => {
+    const template = `
+      {{#books}}
+      <div class="book">
+        <h2 class="book-title">{{volumeInfo.title}}</h2>
+        <img class="book-image" src="{{volumeInfo.imageLinks.thumbnail}}" alt="{{volumeInfo.title}}" />
+        <p class="book-description">{{volumeInfo.description}}</p>
+        <a href="{{volumeInfo.infoLink}}">More Info</a>
+      </div>
+      {{/books}}
+    `;
+    const rendered = Mustache.render(template, { books });
+    $('#books').html(rendered);
+  };
+
+  useEffect(() => {
+    fetchBooks();
   }, []);
+
+  useEffect(() => {
+    renderBooks();
+  }, [books]);
 
   return (
     <div>
-      {books.map(book => (
-        <div className="book" key={book.id}>
-          <h2 className="book-title">{book.volumeInfo.title}</h2>
-          <img className="book-image" src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} />
-          <p className="book-description">{book.volumeInfo.description || 'No description available'}</p>
-          <a href={book.volumeInfo.infoLink}>More Info</a>
-        </div>
-      ))}
+      <div id="books"></div>
     </div>
   );
 }
