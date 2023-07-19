@@ -35,7 +35,7 @@ function App() {
         <div className="book">
           <h2 className="book-title">{book.volumeInfo?.title}</h2>
           <img className="book-image" src={book.volumeInfo?.imageLinks?.thumbnail} alt={book.volumeInfo?.title} />
-          <p className="book-description">{book.volumeInfo.description || 'No description available'}</p>
+          <div className="book-description" dangerouslySetInnerHTML={{ __html: book.volumeInfo?.description || 'No description available' }}></div>
           <p className="book-info"><strong>ISBN: </strong>{book.volumeInfo?.industryIdentifiers?.[0]?.identifier}</p>
           <p className="book-info"><strong>Author(s): </strong>{book.volumeInfo?.authors?.join(', ')}</p>
           <p className="book-info"><strong>Publisher: </strong>{book.volumeInfo?.publisher}</p>
