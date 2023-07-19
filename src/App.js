@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './index.css';
 
 function App() {
   const [book, setBook] = useState({});
@@ -21,7 +21,13 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Google Books Search App</h1>
+      <input 
+          type="text" 
+          value={search} 
+          onChange={e => setSearch(e.target.value)} 
+          placeholder="Search for books" 
+        />
+        <button onClick={handleSearch}>Search</button>
       </header>
 
       <main>
@@ -29,14 +35,6 @@ function App() {
           <h2>{book.volumeInfo?.title}</h2>
           <p>{book.volumeInfo?.description || 'No description available'}</p>
         </div>
-
-        <input 
-          type="text" 
-          value={search} 
-          onChange={e => setSearch(e.target.value)} 
-          placeholder="Search for books" 
-        />
-        <button onClick={handleSearch}>Search</button>
 
         {books.map(book => (
           <div key={book.id}>
