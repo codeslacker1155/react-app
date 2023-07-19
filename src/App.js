@@ -44,6 +44,7 @@ function App() {
             <span><img className="book-image" src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} /></span>
             <hr />
             <p className="book-description">{book.volumeInfo.description || 'No description available'}</p>
+            <hr />
             <p className="book-authors"><strong>Authors: </strong>{book.volumeInfo.authors?.join(', ') || 'No authors available'}</p>
             <p className="book-categories"><strong>Categories: </strong>{book.volumeInfo.categories?.join(', ') || 'No categories available'}</p>
             <p className="book-identifiers"><strong>Identifiers: </strong>{book.volumeInfo.industryIdentifiers?.map(identifier => identifier.identifier).join(', ') || 'No identifiers available'}</p>
