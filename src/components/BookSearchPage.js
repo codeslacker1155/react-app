@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
+import '../index.css';
 
 function BookSearchPage() {
   const [search, setSearch] = useState('');

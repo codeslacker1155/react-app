@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
+import '../index.css';
 
 function PublicBookshelfPage() {
   const [books, setBooks] = useState([]);
@@ -8,7 +9,7 @@ function PublicBookshelfPage() {
   const fetchBooks = useCallback(() => {
     // Fetch the books from your public bookshelf
     // You need to replace the URL with the actual URL of your public bookshelf
-    $.get('https://www.googleapis.com/books/v1/users/userId/bookshelves/shelfId/volumes', (data) => {
+    $.get('https://www.googleapis.com/books/v1/users/104553721219978298619/bookshelves/1', (data) => {
       setBooks(data.items);
     });
   }, []);

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import $ from 'jquery';
 import Mustache from 'mustache';
+import '../index.css';
 
 function BookDetailsPage() {
   const { id } = useParams();
