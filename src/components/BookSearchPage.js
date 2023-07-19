@@ -6,11 +6,11 @@ function BookSearchPage() {
   const [search, setSearch] = useState('');
   const [books, setBooks] = useState([]);
 
-  const handleSearch = async () => {
+  const handleSearch = useCallback(async () => {
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}`, (data) => {
       setBooks(data.items);
     });
-  };
+  }, [search]);
 
   const renderBooks = useCallback(() => {
     const template = `
