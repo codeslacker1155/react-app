@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
 import '../index.css';
+import ReactDOM from 'react-dom';
 import BookDetailsPage from './BookDetailsPage'; // Import the BookDetailsPage component
 
 function PublicBookshelfPage() {
