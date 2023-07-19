@@ -41,21 +41,19 @@ function App() {
         {books.map(book => (
           <div className="book" key={book.id}>
             <h2 className="book-title">{book.volumeInfo.title}</h2>
-            <img className="book-image" src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} />
+            <span><img className="book-image" src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} /></span>
+            <hr />
             <p className="book-description">{book.volumeInfo.description || 'No description available'}</p>
-            <p className="book-authors">Authors: {book.volumeInfo.authors?.join(', ') || 'No authors available'}</p>
-            <p className="book-categories">Categories: {book.volumeInfo.categories?.join(', ') || 'No categories available'}</p>
-            <p className="book-identifiers">Identifiers: {book.volumeInfo.industryIdentifiers?.map(identifier => identifier.identifier).join(', ') || 'No identifiers available'}</p>
-            <p className="book-published-date">Published Date: {book.volumeInfo.publishedDate}</p>
-            <p className="book-publisher">Publisher: {book.volumeInfo.publisher}</p>
-            <p className="book-page-count">Page Count: {book.volumeInfo.pageCount}</p>
-            <p className="book-average-rating">Average Rating: {book.volumeInfo.averageRating}</p>
-            <p className="book-ratings-count">Ratings Count: {book.volumeInfo.ratingsCount}</p>
-            <p className="book-language">Language: {book.volumeInfo.language}</p>
-            <p className="book-preview-link">Preview Link: <a href={book.volumeInfo.previewLink}>{book.volumeInfo.previewLink}</a></p>
-            <p className="book-info-link">Info Link: <a href={book.volumeInfo.infoLink}>{book.volumeInfo.infoLink}</a></p>
-            <p className="book-canonical-volume-link">Canonical Volume Link: <a href={book.volumeInfo.canonicalVolumeLink}>{book.volumeInfo.canonicalVolumeLink}</a></p>
-            <p className="book-subtitle">Subtitle: {book.volumeInfo.subtitle}</p>
+            <p className="book-authors"><strong>Authors: </strong>{book.volumeInfo.authors?.join(', ') || 'No authors available'}</p>
+            <p className="book-categories"><strong>Categories: </strong>{book.volumeInfo.categories?.join(', ') || 'No categories available'}</p>
+            <p className="book-identifiers"><strong>Identifiers: </strong>{book.volumeInfo.industryIdentifiers?.map(identifier => identifier.identifier).join(', ') || 'No identifiers available'}</p>
+            <p className="book-published-date"><strong>Published Date: </strong>{book.volumeInfo.publishedDate}</p>
+            <p className="book-publisher"><strong>Publisher: </strong>{book.volumeInfo.publisher}</p>
+            <p className="book-page-count"><strong>Page Count: </strong>{book.volumeInfo.pageCount}</p>
+            <p className="book-average-rating"><strong>Average Rating: </strong>{book.volumeInfo.averageRating}</p>
+            <p className="book-ratings-count"><strong>Ratings Count: </strong>{book.volumeInfo.ratingsCount}</p>
+            <p className="book-language"><strong>Language: </strong>{book.volumeInfo.language}</p>
+            <p className="book-preview-link"><strong>Preview Link: </strong><a href={book.volumeInfo.previewLink}>{book.volumeInfo.previewLink}</a></p>
             <hr />
           </div>
         ))}
