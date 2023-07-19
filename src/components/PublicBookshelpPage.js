@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
 
 function PublicBookshelfPage() {
   const [books, setBooks] = useState([]);
 
-  const fetchBooks = () => {
+  const fetchBooks = useCallback(() => {
     // Fetch the books from your public bookshelf
     // You need to replace the URL with the actual URL of your public bookshelf
     $.get('https://www.googleapis.com/books/v1/users/userId/bookshelves/shelfId/volumes', (data) => {
       setBooks(data.items);
     });
-  };
+  }, []);
 
-  const renderBooks = () => {
+  const renderBooks = useCallback(() => {
     const template = `
       {{#books}}
       <div class="book">
@@ -26,15 +26,12 @@ function PublicBookshelfPage() {
     `;
     const rendered = Mustache.render(template, { books });
     $('#books').html(rendered);
-  };
+  }, [books]);
 
   useEffect(() => {
     fetchBooks();
-  }, []);
-
-  useEffect(() => {
     renderBooks();
-  }, [books]);
+  }, [books, fetchBooks, renderBooks]);
 
   return (
     <div>

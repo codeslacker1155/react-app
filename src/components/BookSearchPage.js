@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
 
@@ -12,7 +12,7 @@ function BookSearchPage() {
     });
   };
 
-  const renderBooks = () => {
+  const renderBooks = useCallback(() => {
     const template = `
       {{#books}}
       <div class="book">
@@ -25,11 +25,12 @@ function BookSearchPage() {
     `;
     const rendered = Mustache.render(template, { books });
     $('#books').html(rendered);
-  };
+  }, [books]);
 
   useEffect(() => {
+    handleSearch();
     renderBooks();
-  }, [books]);
+  }, [books, handleSearch, renderBooks]);  
 
   return (
     <div>
