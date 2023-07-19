@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
-import ReactDOM from 'react-dom';
 import Mustache from 'mustache';
 import '../index.css';
 
