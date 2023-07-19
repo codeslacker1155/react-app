@@ -10,7 +10,6 @@ body {
     line-height: 1.6;
 }
 
-/* Style the header */
 header {
     background-color: #333;
     color: #fff;
@@ -67,11 +66,12 @@ footer {
     width: 100%;
 }
 
-/* Additional styles for App.js */
 .search-input {
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ddd;
+    width: 60%;
+    margin-right: 10px;
 }
 
 .search-button {
@@ -91,8 +91,27 @@ footer {
 .book {
     border: 1px solid #ddd;
     padding: 20px;
-    margin: 20px;
+    margin: 20px 0;
 }
+
+.book-title {
+    font-size: 1.5em;
+}
+
+.book-image {
+    width: 100px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.book-description {
+    margin-bottom: 10px;
+}
+
+.book-info {
+    margin-bottom: 10px;
+}
+
 
 .book-title {
     font-size: 1.5em;

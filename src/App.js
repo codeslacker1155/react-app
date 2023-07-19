@@ -36,26 +36,25 @@ function App() {
           <h2 className="book-title">{book.volumeInfo?.title}</h2>
           <img className="book-image" src={book.volumeInfo?.imageLinks?.thumbnail} alt={book.volumeInfo?.title} />
           <p className="book-description">{book.volumeInfo?.description || 'No description available'}</p>
+          <p className="book-info"><strong>ISBN: </strong>{book.volumeInfo?.industryIdentifiers?.[0]?.identifier}</p>
+          <p className="book-info"><strong>Author(s): </strong>{book.volumeInfo?.authors?.join(', ')}</p>
+          <p className="book-info"><strong>Publisher: </strong>{book.volumeInfo?.publisher}</p>
+          <p className="book-info"><strong>Page Count: </strong>{book.volumeInfo?.pageCount}</p>
+          <p className="book-info"><strong>Average Rating: </strong>{book.volumeInfo?.averageRating} ({book.volumeInfo?.ratingsCount} ratings)</p>
+          <a href={book.volumeInfo?.infoLink}>More Info</a>
         </div>
 
         {books.map(book => (
           <div className="book" key={book.id}>
             <h2 className="book-title">{book.volumeInfo.title}</h2>
-            <span><img className="book-image" src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} /></span>
-            <hr />
+            <img className="book-image" src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} />
             <p className="book-description">{book.volumeInfo.description || 'No description available'}</p>
-            <hr />
-            <p className="book-authors"><strong>Authors: </strong>{book.volumeInfo.authors?.join(', ') || 'No authors available'}</p>
-            <p className="book-categories"><strong>Categories: </strong>{book.volumeInfo.categories?.join(', ') || 'No categories available'}</p>
-            <p className="book-identifiers"><strong>Identifiers: </strong>{book.volumeInfo.industryIdentifiers?.map(identifier => identifier.identifier).join(', ') || 'No identifiers available'}</p>
-            <p className="book-published-date"><strong>Published Date: </strong>{book.volumeInfo.publishedDate}</p>
-            <p className="book-publisher"><strong>Publisher: </strong>{book.volumeInfo.publisher}</p>
-            <p className="book-page-count"><strong>Page Count: </strong>{book.volumeInfo.pageCount}</p>
-            <p className="book-average-rating"><strong>Average Rating: </strong>{book.volumeInfo.averageRating}</p>
-            <p className="book-ratings-count"><strong>Ratings Count: </strong>{book.volumeInfo.ratingsCount}</p>
-            <p className="book-language"><strong>Language: </strong>{book.volumeInfo.language}</p>
-            <p className="book-preview-link"><strong>Preview Link: </strong><a href={book.volumeInfo.previewLink}>{book.volumeInfo.previewLink}</a></p>
-            <hr />
+            <p className="book-info"><strong>ISBN: </strong>{book.volumeInfo.industryIdentifiers?.[0]?.identifier}</p>
+            <p className="book-info"><strong>Author(s): </strong>{book.volumeInfo.authors?.join(', ')}</p>
+            <p className="book-info"><strong>Publisher: </strong>{book.volumeInfo.publisher}</p>
+            <p className="book-info"><strong>Page Count: </strong>{book.volumeInfo.pageCount}</p>
+            <p className="book-info"><strong>Average Rating: </strong>{book.volumeInfo.averageRating} ({book.volumeInfo.ratingsCount} ratings)</p>
+            <a href={book.volumeInfo.infoLink}>More Info</a>
           </div>
         ))}
       </main>
