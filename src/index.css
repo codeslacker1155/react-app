@@ -106,6 +106,7 @@ footer {
 
 .book-description {
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .book-info {
@@ -123,8 +124,29 @@ footer {
     margin: 10px 0;
 }
 
-.book-description {
-    text-align: left;
+
+.grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.list-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-item {
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.book-details {
+    display: none;
+}
+
+.book-details.visible {
+    display: block;
 }
 
 .book-authors,
