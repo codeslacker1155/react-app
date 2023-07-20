@@ -10,9 +10,11 @@ function BookSearchPage() {
   const [books, setBooks] = useState([]);
   const [view, setView] = useState('list'); // Add state for view
   const [currentPage, setCurrentPage] = useState(1); // Add state for current page
+  const [isSearched, setIsSearched] = useState(false); // Add state for search status
   const resultsPerPage = 10; // Set the number of results per page
 
   const handleSearch = useCallback(() => {
+    setIsSearched(true); // Set isSearched to true when search button is clicked
     const startIndex = (currentPage - 1) * resultsPerPage; // Calculate the start index
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
       if (data.items && data.items.length > 0) { // Check if the search results are not empty
@@ -46,9 +48,11 @@ function BookSearchPage() {
   }, [books, view]); // Add view to the dependencies
 
   useEffect(() => {
-    handleSearch();
-    renderBooks();
-  }, [books, handleSearch, renderBooks, currentPage]);  // Add currentPage to the dependencies
+    if (isSearched) { // Only call handleSearch and renderBooks if isSearched is true
+      handleSearch();
+      renderBooks();
+    }
+  }, [books, handleSearch, renderBooks, currentPage, isSearched]);  // Add currentPage and isSearched to the dependencies
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -66,8 +70,12 @@ function BookSearchPage() {
       <button onClick={() => setView('list')}>List View</button> {/* Button to switch to list view */}
       <button onClick={() => setView('grid')}>Grid View</button> {/* Button to switch to grid view */}
       <div id="books"></div>
-      <button onClick={() => handlePageChange(currentPage - 1)}>Previous Page</button>
-      <button onClick={() => handlePageChange(currentPage + 1)}>Next Page</button>
+      {isSearched && (
+        <>
+          <button onClick={() => handlePageChange(currentPage - 1)}>Previous Page</button>
+          <button onClick={() => handlePageChange(currentPage + 1)}>Next Page</button>
+        </>
+      )}
     </div>
   );
 }

@@ -20,11 +20,9 @@ function PublicBookshelfPage() {
     const template = `
       {{#books}}
       <div class="book">
-        <h2 class="book-title">{{volumeInfo.title}}</h2>
-        <img class="book-image" src="{{volumeInfo.imageLinks.thumbnail}}" alt="{{volumeInfo.title}}" />
-        <p class="book-description">{{volumeInfo.description}}</p>
         <div id="book-details-{{id}}"></div> <!-- Placeholder for the BookDetailsPage component -->
-        <a href="{{volumeInfo.infoLink}}">More Info</a>
+        // Add in a feature to enumerate the results and display the total number of results
+        <div class="book-number">{{@index}}</div>
       </div>
       {{/books}}
     `;
