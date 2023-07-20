@@ -8,6 +8,7 @@ import '../index.css';
 function BookSearchPage() {
   const [search, setSearch] = useState('');
   const [books, setBooks] = useState([]);
+  const [view, setView] = useState('list'); // Add state for view
 
   const handleSearch = useCallback(() => {
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}`, (data) => {
@@ -16,7 +17,7 @@ function BookSearchPage() {
   }, [search]);
 
   const renderBooks = useCallback(() => {
-    const template = `
+    const template = view === 'list' ? `
       {{#books}}
       <div class="book">
         <h2 class="book-title">{{volumeInfo.title}}</h2>
@@ -26,7 +27,17 @@ function BookSearchPage() {
         <a href="{{volumeInfo.infoLink}}">More Info</a>
       </div>
       {{/books}}
-    `;
+    ` : `
+      {{#books}}
+      <div class="book grid">
+        <img class="book-image" src="{{volumeInfo.imageLinks.thumbnail}}" alt="{{volumeInfo.title}}" />
+        <h2 class="book-title">{{volumeInfo.title}}</h2>
+        <p class="book-description">{{volumeInfo.description}}</p>
+        <div id="book-details-{{id}}"></div> <!-- Placeholder for BookDetailsPage -->
+        <a href="{{volumeInfo.infoLink}}">More Info</a>
+      </div>
+      {{/books}}
+    `; // Adjust the template based on the view
     const rendered = Mustache.render(template, { books });
     $('#books').html(rendered);
 
@@ -35,11 +46,12 @@ function BookSearchPage() {
       const bookDetails = <BookDetailsPage id={book.id} />;
       ReactDOM.render(bookDetails, document.getElementById(`book-details-${book.id}`));
     });
-  }, [books]);
+  }, [books, view]); // Add view to the dependencies
 
   useEffect(() => {
+    handleSearch();
     renderBooks();
-  }, [books, renderBooks]);  
+  }, [books, handleSearch, renderBooks]);  
 
   return (
     <div>
@@ -50,6 +62,8 @@ function BookSearchPage() {
         placeholder="Search for books" 
       />
       <button onClick={handleSearch}>Search</button>
+      <button onClick={() => setView('list')}>List View</button> {/* Button to switch to list view */}
+      <button onClick={() => setView('grid')}>Grid View</button> {/* Button to switch to grid view */}
       <div id="books"></div>
     </div>
   );

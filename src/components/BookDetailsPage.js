@@ -36,7 +36,7 @@ function BookDetailsPage({ id }) { // Receive id as a prop
   useEffect(() => {
     fetchBook();
     renderBook();
-  }, [id, fetchBook, renderBook]);
+  }, [books.map(book => book.id), id, fetchBook, renderBook]);
 
   return (
     <div id={`book-details-${id}`}></div> // Use the book id to create a unique id for each book details container
