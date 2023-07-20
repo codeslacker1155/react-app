@@ -12,20 +12,22 @@ function BookSearchPage() {
 
   const handleSearch = useCallback(() => {
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}`, (data) => {
-      setBooks(data.items);
+      if (data.items && data.items.length > 0) { // Check if the search results are not empty
+        setBooks(data.items);
+      }
     });
   }, [search]);
 
   const renderBooks = useCallback(() => {
     const template = view === 'list' ? `
       {{#books}}
-      <div class="book">
+      <div class="list-view">
         <div id="book-details-{{id}}"></div> <!-- Placeholder for BookDetailsPage -->
       </div>
       {{/books}}
     ` : `
       {{#books}}
-      <div class="book-grid">
+      <div class="grid-view">
         <div id="book-details-{{id}}"></div> <!-- Placeholder for BookDetailsPage -->
       </div>
       {{/books}}
