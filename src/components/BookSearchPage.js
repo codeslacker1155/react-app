@@ -69,15 +69,16 @@ function BookSearchPage() {
         value={search} 
         onChange={e => setSearch(e.target.value)} 
         placeholder="Search for books" 
+        className="search-input" // Add class name for styling
       />
-      <button onClick={handleSearch}>Search</button>
-      <button onClick={() => setView('list')}>List View</button> {/* Button to switch to list view */}
-      <button onClick={() => setView('grid')}>Grid View</button> {/* Button to switch to grid view */}
+      <button onClick={handleSearch} className="search-button">Search</button> // Add class name for styling
+      <button onClick={() => setView('list')} className="view-button">List View</button> {/* Button to switch to list view */}
+      <button onClick={() => setView('grid')} className="view-button">Grid View</button> {/* Button to switch to grid view */}
       <div id="books"></div>
       {isSearched && books.length > 0 && (
         <>
-          <button onClick={() => handlePageChange(currentPage - 1)}>Previous Page</button>
-          <button onClick={() => handlePageChange(currentPage + 1)}>Next Page</button>
+          <button onClick={() => handlePageChange(currentPage - 1)} className="page-button">Previous Page</button>
+          <button onClick={() => handlePageChange(currentPage + 1)} className="page-button">Next Page</button>
         </>
       )}
     </div>
