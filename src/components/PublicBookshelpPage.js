@@ -43,8 +43,13 @@ function PublicBookshelfPage() {
 
   useEffect(() => {
     fetchBooks();
-    renderBooks();
-  }, [books, fetchBooks, renderBooks]);
+  }, [fetchBooks]); // Fetch the books when the component mounts
+
+  useEffect(() => {
+    if (books.length > 0) { // Only render the books and the BookDetailsPage component if the book data has been fetched
+      renderBooks();
+    }
+  }, [books, renderBooks]); // Re-render whenever a new book is added
 
   return (
     <div>

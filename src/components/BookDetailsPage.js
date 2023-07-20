@@ -4,15 +4,21 @@ import Mustache from 'mustache';
 import '../index.css';
 
 function BookDetailsPage({ id }) { // Receive id as a prop
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState(null);
 
   const fetchBook = useCallback(() => {
     $.get(`https://www.googleapis.com/books/v1/volumes/${id}`, (data) => {
       setBook(data);
+    }).fail(() => {
+      console.error(`Failed to fetch book with id ${id}`);
     });
   }, [id]);
 
   const renderBook = useCallback(() => {
+    if (!book) {
+      return;
+    }
+
     // Replace carriage return characters with line breaks
     const description = book.volumeInfo.description.replace(/_x000D_/g, '<br />');
 
@@ -35,8 +41,11 @@ function BookDetailsPage({ id }) { // Receive id as a prop
 
   useEffect(() => {
     fetchBook();
+  }, [id, fetchBook]);
+
+  useEffect(() => {
     renderBook();
-  }, [books.map(book => book.id), id, fetchBook, renderBook]);
+  }, [book, renderBook]);
 
   return (
     <div id={`book-details-${id}`}></div> // Use the book id to create a unique id for each book details container
