@@ -20,21 +20,13 @@ function BookSearchPage() {
     const template = view === 'list' ? `
       {{#books}}
       <div class="book">
-        <h2 class="book-title">{{volumeInfo.title}}</h2>
-        <img class="book-image" src="{{volumeInfo.imageLinks.thumbnail}}" alt="{{volumeInfo.title}}" />
-        <p class="book-description">{{volumeInfo.description}}</p>
         <div id="book-details-{{id}}"></div> <!-- Placeholder for BookDetailsPage -->
-        <a href="{{volumeInfo.infoLink}}">More Info</a>
       </div>
       {{/books}}
     ` : `
       {{#books}}
-      <div class="book grid">
-        <img class="book-image" src="{{volumeInfo.imageLinks.thumbnail}}" alt="{{volumeInfo.title}}" />
-        <h2 class="book-title">{{volumeInfo.title}}</h2>
-        <p class="book-description">{{volumeInfo.description}}</p>
+      <div class="book-grid">
         <div id="book-details-{{id}}"></div> <!-- Placeholder for BookDetailsPage -->
-        <a href="{{volumeInfo.infoLink}}">More Info</a>
       </div>
       {{/books}}
     `; // Adjust the template based on the view
