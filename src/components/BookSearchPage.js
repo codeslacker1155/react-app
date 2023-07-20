@@ -71,7 +71,7 @@ function BookSearchPage() {
         placeholder="Search for books" 
         className="search-input" // Add class name for styling
       />
-      <button onClick={handleSearch} className="search-button">Search</button> // Add class name for styling
+      <button onClick={handleSearch} className="search-button">Search</button> {/* Add class name for styling */}
       <button onClick={() => setView('list')} className="view-button">List View</button> {/* Button to switch to list view */}
       <button onClick={() => setView('grid')} className="view-button">Grid View</button> {/* Button to switch to grid view */}
       <div id="books"></div>
