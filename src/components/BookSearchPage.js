@@ -22,7 +22,7 @@ function BookSearchPage() {
       } else {
         setBooks([]); // Clear the books if no results are returned
       }
-    });
+    }).then(renderBooks);
   }, [search, currentPage]);
 
   const renderBooks = useCallback(() => {
@@ -50,13 +50,6 @@ function BookSearchPage() {
       });
     }
   }, [books, view]); // Add view to the dependencies
-
-  useEffect(() => {
-    if (isSearched) { // Only call handleSearch and renderBooks if isSearched is true
-      handleSearch();
-      renderBooks();
-    }
-  }, [handleSearch, renderBooks, isSearched]);  // Remove books and currentPage from the dependencies
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);

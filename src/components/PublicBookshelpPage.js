@@ -21,7 +21,6 @@ function PublicBookshelfPage() {
       {{#books}}
       <div class="book">
         <div id="book-details-{{id}}"></div> <!-- Placeholder for the BookDetailsPage component -->
-        // Add in a feature to enumerate the results and display the total number of results
         <div class="book-number">{{@index}}</div>
       </div>
       {{/books}}
