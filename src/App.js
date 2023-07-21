@@ -24,8 +24,8 @@ function App() {
             <BookSearchPage />
           </Route>
         </Switch>
-        <br />
         <footer>
+          <br />
           <p>© 2023 Christopher Hyatt</p>
         </footer>
       </div>
