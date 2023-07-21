@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
 import ReactDOM from 'react-dom'; // Import ReactDOM
@@ -51,6 +51,12 @@ function BookSearchPage() {
       }
     });
   }, [search, currentPage, renderBooks]); // Add renderBooks to the dependencies
+
+  useEffect(() => {
+    if (isSearched) {
+      handleSearch();
+    }
+  }, [isSearched, handleSearch]);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
