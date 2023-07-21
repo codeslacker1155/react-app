@@ -40,13 +40,14 @@ nav a {
     margin: 0 10px;
     padding: 10px 20px;
     border-radius: 10px;
-    background-color: #007BFF;
+    background-color: #070707;
     color: white;
+    width: -webkit-fill-available;
     transition: background-color 0.3s ease;
 }
 
 nav a:hover {
-    background-color: #0056b3;
+    background-color: #3b3b3b;
 }
 
 main {
@@ -90,7 +91,7 @@ footer {
     padding: 10px 20px;
     border-radius: 10px;
     border: none;
-    background-color: #007BFF;
+    background-color: #070707;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -99,7 +100,7 @@ footer {
 }
 
 .search-button:hover {
-    background-color: #0056b3;
+    background-color: #3b3b3b;
 }
 
 .view-buttons {
@@ -115,7 +116,7 @@ footer {
   margin: 0 10px;
   padding: 10px 20px;
   border-radius: 10px;
-  background-color: #007BFF;
+  background-color: #070707;
   color: white;
   transition: background-color 0.3s ease;
 }
