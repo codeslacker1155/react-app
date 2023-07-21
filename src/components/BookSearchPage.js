@@ -45,7 +45,6 @@ function BookSearchPage() {
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
       if (data.items && data.items.length > 0) { // Check if the search results are not empty
         setBooks(data.items);
-        renderBooks(); // Call renderBooks after setting books
       } else {
         setBooks([]); // Clear the books if no results are returned
       }
@@ -53,6 +52,9 @@ function BookSearchPage() {
   }, [search, currentPage, renderBooks]); // Add renderBooks to the dependencies
 
   const handlePageChange = (pageNumber) => {
+    if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
+      return;
+    }
     setCurrentPage(pageNumber);
   };
 
@@ -66,14 +68,16 @@ function BookSearchPage() {
         className="search-input" // Add class name for styling
       />
       <button onClick={handleSearch} className="search-button">Search</button> {/* Add class name for styling */}
-      <button onClick={() => setView('list')} className="view-button">List View</button> {/* Button to switch to list view */}
-      <button onClick={() => setView('grid')} className="view-button">Grid View</button> {/* Button to switch to grid view */}
+      <div className="view-buttons">
+        <button onClick={() => setView('list')} className="search-button">List View</button> {/* Button to switch to list view */}
+        <button onClick={() => setView('grid')} className="search-button">Grid View</button> {/* Button to switch to grid view */}
+      </div>
       <div id="books"></div>
       {isSearched && books.length > 0 && (
-        <>
-          <button onClick={() => handlePageChange(currentPage - 1)} className="page-button">Previous Page</button>
-          <button onClick={() => handlePageChange(currentPage + 1)} className="page-button">Next Page</button>
-        </>
+        <div className="pagination">
+          <button onClick={() => handlePageChange(currentPage - 1)} className="search-button">Previous Page</button>
+          <button onClick={() => handlePageChange(currentPage + 1)} className="search-button">Next Page</button>
+        </div>
       )}
     </div>
   );
