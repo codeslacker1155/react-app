@@ -45,11 +45,12 @@ function BookSearchPage() {
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
       if (data.items && data.items.length > 0) { // Check if the search results are not empty
         setBooks(data.items);
+        renderBooks(); // Call renderBooks after setting books
       } else {
         setBooks([]); // Clear the books if no results are returned
       }
     });
-  }, [search, currentPage]); // Removed renderBooks from the dependencies
+  }, [search, currentPage, renderBooks]); // Add renderBooks to the dependencies
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
