@@ -22,10 +22,12 @@ function App() {
           </Route>
           <Route path="/">
             <BookSearchPage />
+            <br />
+            <br />
+            <br />
           </Route>
         </Switch>
         <footer>
-          <br />
           <p>© 2023 Christopher Hyatt</p>
         </footer>
       </div>
