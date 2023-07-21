@@ -19,41 +19,38 @@ function BookSearchPage() {
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
       if (data.items && data.items.length > 0) {
         setBooks(data.items);
+        const template = view === 'list' ? `
+          {{#books}}
+          <div class="list-view">
+            <div id="book-details-{{id}}"></div>
+          </div>
+          {{/books}}
+        ` : `
+          {{#books}}
+          <div class="grid-view">
+            <div id="book-details-{{id}}"></div>
+          </div>
+          {{/books}}
+        `;
+        const rendered = Mustache.render(template, { books: data.items });
+        $('#books').html(rendered);
+
+        data.items.forEach(book => {
+          const bookDetails = <BookDetailsPage id={book.id} />;
+          ReactDOM.render(bookDetails, document.getElementById(`book-details-${book.id}`));
+        });
       } else {
         setBooks([]);
       }
       setLoading(false);
     });
-  }, [search, currentPage]);
+  }, [search, currentPage, view]);
 
   useEffect(() => {
     if (!loading) {
       handleSearch();
     }
   }, [loading, handleSearch]);
-
-  useEffect(() => {
-    const template = view === 'list' ? `
-      {{#books}}
-      <div class="list-view">
-        <div id="book-details-{{id}}"></div>
-      </div>
-      {{/books}}
-    ` : `
-      {{#books}}
-      <div class="grid-view">
-        <div id="book-details-{{id}}"></div>
-      </div>
-      {{/books}}
-    `;
-    const rendered = Mustache.render(template, { books });
-    $('#books').html(rendered);
-
-    books.forEach(book => {
-      const bookDetails = <BookDetailsPage id={book.id} />;
-      ReactDOM.render(bookDetails, document.getElementById(`book-details-${book.id}`));
-    });
-  }, [books, view]);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
