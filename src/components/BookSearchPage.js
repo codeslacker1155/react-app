@@ -10,7 +10,6 @@ function BookSearchPage() {
   const [books, setBooks] = useState([]);
   const [view, setView] = useState('list'); // Add state for view
   const [currentPage, setCurrentPage] = useState(1); // Add state for current page
-  const [isSearched, setIsSearched] = useState(false); // Add state for search status
   const [loading, setLoading] = useState(false); // Add state for loading status
   const resultsPerPage = 10; // Set the number of results per page
 
@@ -55,10 +54,10 @@ function BookSearchPage() {
   }, [search, currentPage, renderBooks]); // Add renderBooks to the dependencies
 
   useEffect(() => {
-    if (isSearched && !loading) {
+    if (!loading) {
       handleSearch();
     }
-  }, [isSearched, loading, handleSearch]);
+  }, [loading, handleSearch]);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
@@ -82,7 +81,7 @@ function BookSearchPage() {
         <button onClick={() => setView('grid')} className="search-button">Grid View</button> {/* Button to switch to grid view */}
       </div>
       <div id="books"></div>
-      {isSearched && books.length > 0 && (
+      {books.length > 0 && (
         <div className="pagination">
           <button onClick={() => handlePageChange(currentPage - 1)} className="search-button">Previous Page</button>
           <button onClick={() => handlePageChange(currentPage + 1)} className="search-button">Next Page</button>
