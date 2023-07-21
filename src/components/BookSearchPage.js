@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
 import ReactDOM from 'react-dom'; // Import ReactDOM
