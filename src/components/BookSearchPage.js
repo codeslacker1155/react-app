@@ -11,6 +11,7 @@ function BookSearchPage() {
   const [view, setView] = useState('list'); // Add state for view
   const [currentPage, setCurrentPage] = useState(1); // Add state for current page
   const [isSearched, setIsSearched] = useState(false); // Add state for search status
+  const [loading, setLoading] = useState(false); // Add state for loading status
   const resultsPerPage = 10; // Set the number of results per page
 
   const renderBooks = useCallback(() => {
@@ -40,7 +41,7 @@ function BookSearchPage() {
   }, [books, view]); // Add view to the dependencies
 
   const handleSearch = useCallback(() => {
-    setIsSearched(true); // Set isSearched to true when search button is clicked
+    setLoading(true); // Set loading to true when search starts
     const startIndex = (currentPage - 1) * resultsPerPage; // Calculate the start index
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
       if (data.items && data.items.length > 0) { // Check if the search results are not empty
@@ -49,14 +50,15 @@ function BookSearchPage() {
       } else {
         setBooks([]); // Clear the books if no results are returned
       }
+      setLoading(false); // Set loading to false when search finishes
     });
   }, [search, currentPage, renderBooks]); // Add renderBooks to the dependencies
 
   useEffect(() => {
-    if (isSearched) {
+    if (isSearched && !loading) {
       handleSearch();
     }
-  }, [isSearched, handleSearch]);
+  }, [isSearched, loading, handleSearch]);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
