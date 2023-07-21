@@ -13,18 +13,6 @@ function BookSearchPage() {
   const [isSearched, setIsSearched] = useState(false); // Add state for search status
   const resultsPerPage = 10; // Set the number of results per page
 
-  const handleSearch = useCallback(() => {
-    setIsSearched(true); // Set isSearched to true when search button is clicked
-    const startIndex = (currentPage - 1) * resultsPerPage; // Calculate the start index
-    $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
-      if (data.items && data.items.length > 0) { // Check if the search results are not empty
-        setBooks(data.items);
-      } else {
-        setBooks([]); // Clear the books if no results are returned
-      }
-    }).then(renderBooks);
-  }, [search, currentPage]);
-
   const renderBooks = useCallback(() => {
     if (books.length > 0) { // Only render books if there are books to render
       const template = view === 'list' ? `
@@ -50,6 +38,19 @@ function BookSearchPage() {
       });
     }
   }, [books, view]); // Add view to the dependencies
+
+  const handleSearch = useCallback(() => {
+    setIsSearched(true); // Set isSearched to true when search button is clicked
+    const startIndex = (currentPage - 1) * resultsPerPage; // Calculate the start index
+    $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
+      if (data.items && data.items.length > 0) { // Check if the search results are not empty
+        setBooks(data.items);
+        renderBooks(); // Call renderBooks after setting books
+      } else {
+        setBooks([]); // Clear the books if no results are returned
+      }
+    });
+  }, [search, currentPage, renderBooks]); // Add renderBooks to the dependencies
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
