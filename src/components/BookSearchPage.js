@@ -49,7 +49,7 @@ function BookSearchPage() {
         setBooks([]); // Clear the books if no results are returned
       }
     });
-  }, [search, currentPage, renderBooks]); // Add renderBooks to the dependencies
+  }, [search, currentPage]); // Removed renderBooks from the dependencies
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
