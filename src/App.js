@@ -9,19 +9,13 @@ function App() {
   return (
     <Router>
       <div className="App">
-      <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/public">My Bookshelf</Link>
-            </li>
-          </ul>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/public">My Bookshelf</Link>
         </nav>
         <Switch>
           <Route path="/book/:id">
-            <BookDetailsPage />       
+            <BookDetailsPage />
           </Route>
           <Route path="/public">
             <PublicBookshelfPage />
@@ -30,6 +24,7 @@ function App() {
             <BookSearchPage />
           </Route>
         </Switch>
+        <br />
         <footer>
           <p>© 2023 Christopher Hyatt</p>
         </footer>

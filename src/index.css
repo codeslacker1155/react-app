@@ -85,10 +85,25 @@ footer {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto;
 }
 
 .search-button:hover {
     background-color: #0056b3;
+}
+
+.view-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.view-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 10px;
 }
 
 .book {
@@ -176,19 +191,6 @@ footer {
 
 .pagination button:hover {
   background-color: #0056b3;
-}
-
-.view-buttons {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.view-buttons button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin: 0 10px;
 }
 
 #books {
