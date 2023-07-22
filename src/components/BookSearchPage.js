@@ -11,6 +11,7 @@ function BookSearchPage() {
   const [view, setView] = useState('list');
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
+  const totalPages = 6; // Set the total number of pages
 
   const handleSearch = useCallback(() => {
     const startIndex = (currentPage - 1) * resultsPerPage;
@@ -44,7 +45,7 @@ function BookSearchPage() {
   }, [search, currentPage, view]);
 
   const handlePageChange = (pageNumber) => {
-    if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
+    if (pageNumber < 1 || pageNumber > totalPages || (pageNumber > 1 && books.length === 0)) {
       return;
     }
     setCurrentPage(pageNumber);
@@ -69,6 +70,9 @@ function BookSearchPage() {
       {books.length > 0 && (
         <div className="pagination">
           <button onClick={() => handlePageChange(currentPage - 1)} className="search-button">Previous Page</button>
+          {[...Array(totalPages)].map((_, index) => (
+            <button key={index} onClick={() => handlePageChange(index + 1)} className="search-button">{index + 1}</button>
+          ))}
           <button onClick={() => handlePageChange(currentPage + 1)} className="search-button">Next Page</button>
         </div>
       )}
