@@ -33,6 +33,10 @@ function BookSearchPage() {
     }
   }, [loading, handleSearch]);
 
+  useEffect(() => {
+    handleSearch();
+  }, [currentPage, handleSearch]);
+
   const handlePageChange = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > totalPages || (pageNumber > 1 && books.length === 0)) {
       return;
