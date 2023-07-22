@@ -10,46 +10,64 @@ function BookSearchPage() {
   const [books, setBooks] = useState([]);
   const [view, setView] = useState('list');
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const resultsPerPage = 10;
   const totalPages = 6; // Set the total number of pages
 
   const handleSearch = useCallback(() => {
+    setLoading(true);
     const startIndex = (currentPage - 1) * resultsPerPage;
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
       if (data.items && data.items.length > 0) {
         setBooks(data.items);
-        const template = view === 'list' ? `
-          {{#books}}
-          <div class="list-view">
-            <div id="book-details-{{id}}"></div>
-          </div>
-          {{/books}}
-        ` : `
-          {{#books}}
-          <div class="grid-view">
-            <div id="book-details-{{id}}"></div>
-          </div>
-          {{/books}}
-        `;
-        const rendered = Mustache.render(template, { books: data.items });
-        $('#books').html(rendered);
-
-        data.items.forEach(book => {
-          const bookDetails = <BookDetailsPage id={book.id} />;
-          ReactDOM.render(bookDetails, document.getElementById(`book-details-${book.id}`));
-        });
       } else {
         setBooks([]);
       }
+      setLoading(false);
     });
-  }, [search, currentPage, view]);
+  }, [search, currentPage]);
+
+  useEffect(() => {
+    if (!loading) {
+      handleSearch();
+    }
+  }, [loading, handleSearch]);
 
   const handlePageChange = (pageNumber) => {
-    if (pageNumber < 1 || pageNumber > totalPages) {
+    if (pageNumber < 1 || pageNumber > totalPages || (pageNumber > 1 && books.length === 0)) {
       return;
     }
     setCurrentPage(pageNumber);
   };
+
+  const renderBooks = () => {
+    if (books.length > 0) {
+      const template = view === 'list' ? `
+        <div class="list-view">
+          {{#books}}
+          <div id="book-details-{{id}}"></div>
+          {{/books}}
+        </div>
+      ` : `
+        <div class="grid-view">
+          {{#books}}
+          <div id="book-details-{{id}}"></div>
+          {{/books}}
+        </div>
+      `;
+      const rendered = Mustache.render(template, { books });
+      $('#books').html(rendered);
+
+      books.forEach(book => {
+        const bookDetails = <BookDetailsPage id={book.id} />;
+        ReactDOM.render(bookDetails, document.getElementById(`book-details-${book.id}`));
+      });
+    }
+  };
+
+  useEffect(() => {
+    renderBooks();
+  }, [books, view]);
 
   return (
     <div>
@@ -70,7 +88,7 @@ function BookSearchPage() {
         <div className="pagination">
           <button onClick={() => handlePageChange(currentPage - 1)} className="search-button">Previous Page</button>
           {[...Array(totalPages)].map((_, index) => (
-            <button key={index} onClick={() => handlePageChange(index + 1)} className={`search-button ${currentPage === index + 1 ? 'active' : ''}`}>{index + 1}</button>
+            <button key={index} onClick={() => handlePageChange(index + 1)} className="search-button">{index + 1}</button>
           ))}
           <button onClick={() => handlePageChange(currentPage + 1)} className="search-button">Next Page</button>
         </div>
