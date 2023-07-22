@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
 import ReactDOM from 'react-dom';
@@ -10,11 +10,9 @@ function BookSearchPage() {
   const [books, setBooks] = useState([]);
   const [view, setView] = useState('list');
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(false);
   const resultsPerPage = 10;
 
   const handleSearch = useCallback(() => {
-    setLoading(true);
     const startIndex = (currentPage - 1) * resultsPerPage;
     $.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${startIndex}&maxResults=${resultsPerPage}`, (data) => {
       if (data.items && data.items.length > 0) {
@@ -42,21 +40,15 @@ function BookSearchPage() {
       } else {
         setBooks([]);
       }
-      setLoading(false);
     });
   }, [search, currentPage, view]);
-
-  useEffect(() => {
-    if (!loading) {
-      handleSearch();
-    }
-  }, [loading, handleSearch]);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber < 1 || (pageNumber > 1 && books.length === 0)) {
       return;
     }
     setCurrentPage(pageNumber);
+    handleSearch();
   };
 
   return (
