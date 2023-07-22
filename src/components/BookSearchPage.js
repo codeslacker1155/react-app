@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import Mustache from 'mustache';
 import ReactDOM from 'react-dom';
@@ -45,11 +45,10 @@ function BookSearchPage() {
   }, [search, currentPage, view]);
 
   const handlePageChange = (pageNumber) => {
-    if (pageNumber < 1 || pageNumber > totalPages || (pageNumber > 1 && books.length === 0)) {
+    if (pageNumber < 1 || pageNumber > totalPages) {
       return;
     }
     setCurrentPage(pageNumber);
-    handleSearch();
   };
 
   return (
@@ -71,7 +70,7 @@ function BookSearchPage() {
         <div className="pagination">
           <button onClick={() => handlePageChange(currentPage - 1)} className="search-button">Previous Page</button>
           {[...Array(totalPages)].map((_, index) => (
-            <button key={index} onClick={() => handlePageChange(index + 1)} className="search-button">{index + 1}</button>
+            <button key={index} onClick={() => handlePageChange(index + 1)} className={`search-button ${currentPage === index + 1 ? 'active' : ''}`}>{index + 1}</button>
           ))}
           <button onClick={() => handlePageChange(currentPage + 1)} className="search-button">Next Page</button>
         </div>
