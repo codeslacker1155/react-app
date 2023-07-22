@@ -153,9 +153,13 @@ footer {
 }
 
 .grid-view {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 20px;
+    column-count: 4;
+    column-gap: 1em;
+}
+
+.grid-view > div {
+    break-inside: avoid;
+    margin-bottom: 1em;
 }
 
 .list-view {
