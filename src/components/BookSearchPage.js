@@ -40,7 +40,7 @@ function BookSearchPage() {
     setCurrentPage(pageNumber);
   };
 
-  const renderBooks = () => {
+  const renderBooks = useCallback(() => {
     if (books.length > 0) {
       const template = view === 'list' ? `
         <div class="list-view">
@@ -63,11 +63,11 @@ function BookSearchPage() {
         ReactDOM.render(bookDetails, document.getElementById(`book-details-${book.id}`));
       });
     }
-  };
+  }, [books, view]);
 
   useEffect(() => {
     renderBooks();
-  }, [books, view]);
+  }, [books, view, renderBooks]);
 
   return (
     <div>
